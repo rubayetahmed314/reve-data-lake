@@ -1,0 +1,46 @@
+html * {
+    font-family: "Roboto", sans-serif;
+    /* color: bisque; */
+}
+
+.stylish {
+    font-family: "Lobster", cursive;
+}
+
+input[type=radio]{
+    transform:scale(2);
+  }
+
+label {
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.boxshadow {
+    /* border-color: darkslategray;
+    border-style: solid;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 1px;
+    border-bottom-width: 1px; 
+    box-shadow: 0px 0px 10px 6px #004d99; */
+    border-radius: 10px;
+}
+
+.boxshadow:hover {
+    box-shadow: 0px 0px 6px 4px #004d99;
+}
+
+#result{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  
+  .thumbnail {
+    height: 192px;
+  }
