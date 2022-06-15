@@ -1,8 +1,8 @@
+const imageHolder = document.querySelector("#imageHolder");
 const submitBtn = document.querySelector("#submitBtn");
 const convertBtn = document.querySelector("#convertBtn");
 const content = document.querySelector("#content");
 const reference = document.querySelector("#reference");
-const ocr = document.querySelector("#ocr");
 let currentImage = null;
 let currentPSM = null;
 
@@ -65,8 +65,8 @@ submitBtn.addEventListener("click", async function (e) {
     console.log(contentText, referenceText);
     console.log(selected);
 
-    const hashHex = await getHash("SHA-256", content.value);
-    console.log(hashHex);
+    // const hashHex = await getHash("SHA-256", content.value);
+    // console.log(hashHex);
 
     if (selected == "Web Link" && referenceText == "") {
         alert(
@@ -140,9 +140,8 @@ document.querySelector("#files").addEventListener("change", e => {
             picReader.addEventListener("load", function (event) {
                 // LOAD EVENT FOR DISPLAYING PHOTOS
                 const picFile = event.target;
-                const div = document.createElement("div");
-                div.innerHTML = `<img class="thumbnail" src="${picFile.result}" title="${files[i].name}"/>`;
-                output.appendChild(div);
+                imageHolder.innerHTML = `<img class="img-fluid rounded" src="${picFile.result}" title="${files[i].name}"/>`;
+                // output.appendChild(div);
                 console.log(picFile.result);
                 currentImage = picFile.result;
                 currentPSM = 3;
@@ -179,7 +178,7 @@ convertBtn.addEventListener("click", e => {
             // });
             console.log("Response: ", data);
 
-            ocr.value = data.result;
+            content.value = data.result;
             // this.setState({
             //     letter: data.letter,
             // });

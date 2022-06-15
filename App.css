@@ -8,7 +8,7 @@ html * {
 }
 
 input[type=radio]{
-    transform:scale(2);
+    transform:scale(1.2);
   }
 
 label {
@@ -25,13 +25,22 @@ label {
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 1px;
-    border-bottom-width: 1px; 
-    box-shadow: 0px 0px 10px 6px #004d99; */
+    border-bottom-width: 1px; */
+    box-shadow: 0px 0px 6px 4px #004d99;
     border-radius: 10px;
 }
 
 .boxshadow:hover {
-    box-shadow: 0px 0px 6px 4px #004d99;
+    box-shadow: 0px 0px 10px 6px #016e44;
+}
+
+img {
+    object-fit: contain;
+}
+
+textarea {
+    text-align: justify;
+    white-space: normal;
 }
 
 #result{

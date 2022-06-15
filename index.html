@@ -54,35 +54,66 @@
                 REVE Data Lake
             </h1>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-6 px-3">
+                <div class="col-5 px-3">
+                    <div class="row">
+                        <div
+                            class="col-12 boxshadow px-0"
+                            id="imageHolder"
+                            style="width: inherit; height: 70vh; display: flex; justify-content: center;"
+                        >
+                            <!-- <label for="option-size">Size</label>
+                            <input id="option-size" type="number" max="20" min="0" step="1" value="7"> -->
+                            <!-- <img src="..." class="img-fluid" alt="..."> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 px-3">
+                    <button id="convertBtn" type="button" class="btn btn-primary">
+                        Convert
+                    </button>
+                </div>
+                <div class="col-5 px-3">
                     <div class="row">
                         <div
                             class="col-12"
-                            style="width: inherit; height: 75px"
-                        ></div>
+                            id="contentHolder"
+                            style="height: 75vh;"
+                        >
+                            <textarea
+                                id="content"
+                                rows="18"
+                                style="width:inherit"
+                                class="boxshadow px-3 py-3"
+                                placeholder="Content goes here ..."
+                            >
+                            </textarea>
+                        </div>
                     </div>
-                    <textarea
-                        id="content"
-                        rows="15"
-                        style="width: inherit"
-                        class="boxshadow px-3 py-3"
-                        placeholder="Conent goes here ..."
-                    ></textarea>
                 </div>
-                <div class="col-6 px-3">
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <label for="files">Select multiple files</label>
+                    <input id="files" type="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+                    <output id="result">
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-5 px-3">
                     <div
-                        class="row"
+                        class="row px-3"
                         style="
                             width: inherit;
                             height: 75px;
                             display: flex;
                             align-items: center;
-                            justify-content: center;
+                            justify-content: space-between;
                         "
                     >
-                        <div class="col-6 px-3">
+                        <!-- <div class="col-6 px-3"> -->
                             <div class="form-check">
                                 <input
                                     class="form-check-input"
@@ -94,7 +125,7 @@
                                 <label
                                     class="form-check-label mt-n2"
                                     style="
-                                        font-size: x-large;
+                                        font-size: large;
                                         font-weight: bold;
                                     "
                                     for="manual"
@@ -102,8 +133,8 @@
                                     &nbsp;&nbsp;Manual
                                 </label>
                             </div>
-                        </div>
-                        <div class="col-6 px-3">
+                        <!-- </div> -->
+                        <!-- <div class="col-6 px-3"> -->
                             <div class="form-check">
                                 <input
                                     class="form-check-input"
@@ -116,7 +147,7 @@
                                 <label
                                     class="form-check-label mt-n2"
                                     style="
-                                        font-size: x-large;
+                                        font-size: large;
                                         font-weight: bold;
                                     "
                                     for="webLink"
@@ -124,13 +155,33 @@
                                     &nbsp;&nbsp;Web Link
                                 </label>
                             </div>
-                        </div>
+
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="option"
+                                    id="ocr"
+                                    value="OCR"
+                                />
+                                <label
+                                    class="form-check-label mt-n2"
+                                    style="
+                                        font-size: large;
+                                        font-weight: bold;
+                                    "
+                                    for="ocr"
+                                >
+                                    &nbsp;&nbsp;OCR
+                                </label>
+                            </div>
+                        <!-- </div> -->
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <textarea
                                 id="reference"
-                                rows="5"
+                                rows="2"
                                 style="width: inherit"
                                 class="boxshadow px-2 py-2"
                                 placeholder="Reference goes here ..."
@@ -149,25 +200,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="files">Select multiple files</label>
-                    <input id="files" type="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
-                    <output id="result">
-                </div>
-                <div class="col-6">
-                    <textarea
-                                id="ocr"
-                                rows="10"
-                                style="width: inherit"
-                                class="boxshadow px-2 py-2"
-                                placeholder=""
-                            ></textarea>
-                </div>
-                <button id="convertBtn" type="button" class="btn btn-primary">
-                    Convert
-                </button>
             </div>
         </div>
         <script
