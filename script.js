@@ -104,6 +104,7 @@ submitBtn.addEventListener("click", async function (e) {
 
         content.value = "";
         reference.value = "";
+        imageHolder.innerHTML = '';
         document.getElementById("webLink").checked = true;
         reference.disabled = false;
         submitBtn.disabled = true;
@@ -131,8 +132,8 @@ document.querySelector("#files").addEventListener("change", e => {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         //CHECK IF FILE API IS SUPPORTED
         const files = e.target.files; //FILE LIST OBJECT CONTAINING UPLOADED FILES
-        const output = document.querySelector("#result");
-        output.innerHTML = "";
+        // const output = document.querySelector("#result");
+        // output.innerHTML = "";
         for (let i = 0; i < files.length; i++) {
             // LOOP THROUGH THE FILE LIST OBJECT
             if (!files[i].type.match("image")) continue; // ONLY PHOTOS (SKIP CURRENT ITERATION IF NOT A PHOTO)
@@ -179,6 +180,7 @@ convertBtn.addEventListener("click", e => {
             console.log("Response: ", data);
 
             content.value = data.result;
+            submitBtn.disabled = false;
             // this.setState({
             //     letter: data.letter,
             // });
