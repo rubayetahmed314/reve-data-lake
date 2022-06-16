@@ -1,15 +1,70 @@
 const imageHolder = document.querySelector("#imageHolder");
 const submitBtn = document.querySelector("#submitBtn");
 const convertBtn = document.querySelector("#convertBtn");
+const prevBtn = document.querySelector("#prevBtn");
+const nextBtn = document.querySelector("#nextBtn");
+let files = [];
+
 const content = document.querySelector("#content");
 const reference = document.querySelector("#reference");
-let currentImage = null;
-let currentPSM = null;
+let currentImageURL = null;
+let currentImageIndex = -1;
+let currentPSM = 3;
 
 const API = "http://localhost:8000/api";
 // const API = "https://reve-data-lake.herokuapp.com/api";
 
 // let ui = new UI();
+
+const picReader = new FileReader(); // RETRIEVE DATA URI
+
+picReader.addEventListener("load", function (event) {
+    // //Initiate the JavaScript Image object.
+    // let image = new Image();
+
+    // //Set the Base64 string return from FileReader as source.
+    // image.src = event.target.result;
+
+    // //Validate the File Height and Width.
+    // image.onload = function () {
+    //     var height = this.height;
+    //     var width = this.width;
+    //     if (height > 1080 || width > 1920) {
+    //     alert("Height and Width must not exceed 100px.");
+    //     return false;
+    //     }
+    //     alert("Uploaded image has valid Height and Width.");
+    //     return true;
+    // };
+    // LOAD EVENT FOR DISPLAYING PHOTOS
+    const picFile = event.target;
+    // console.log("PicFile", picFile);
+    imageHolder.innerHTML = `<img class="img-fluid rounded" src="${picFile.result}" title="${files[currentImageIndex].name}"/>`;
+    // <a href="large.jpg" class="MagicZoom" data-options="zoomPosition: inner"><img src="small.jpg" /></a>
+    // output.appendChild(div);
+    console.log(picFile.result);
+    currentImageURL = picFile.result;
+});
+
+const updatePrevNext = () => {
+    if(currentImageIndex > 0){
+        prevBtn.disabled = false;
+    } else {
+        prevBtn.disabled = true;
+    }
+    if(currentImageIndex < files.length - 1){
+        nextBtn.disabled = false;
+    } else{
+        nextBtn.disabled = true;
+    }
+}
+
+$(document).ready(function () {
+    $('#psm a').on('click', function () {
+      currentPSM = parseInt($(this).text().split(' ')[0]);
+      console.log("Current PSM is "+ currentPSM);
+    });
+});
 
 if (document.querySelector('input[name="option"]')) {
     document.querySelectorAll('input[name="option"]').forEach(elem => {
@@ -83,6 +138,7 @@ submitBtn.addEventListener("click", async function (e) {
             body: JSON.stringify({
                 content: content.value,
                 reference: selected == "Manual" ? "Manual" : reference.value,
+                ocr: imageHolder.innerHTML==''? false : true,
             }),
         })
             .then(response => {
@@ -128,27 +184,25 @@ submitBtn.addEventListener("click", async function (e) {
 });
 
 document.querySelector("#files").addEventListener("change", e => {
+    console.log("Image Image !!!");
     //CHANGE EVENT FOR UPLOADING PHOTOS
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         //CHECK IF FILE API IS SUPPORTED
-        const files = e.target.files; //FILE LIST OBJECT CONTAINING UPLOADED FILES
+        files = e.target.files; //FILE LIST OBJECT CONTAINING UPLOADED FILES
         // const output = document.querySelector("#result");
         // output.innerHTML = "";
         for (let i = 0; i < files.length; i++) {
             // LOOP THROUGH THE FILE LIST OBJECT
-            if (!files[i].type.match("image")) continue; // ONLY PHOTOS (SKIP CURRENT ITERATION IF NOT A PHOTO)
-            const picReader = new FileReader(); // RETRIEVE DATA URI
-            picReader.addEventListener("load", function (event) {
-                // LOAD EVENT FOR DISPLAYING PHOTOS
-                const picFile = event.target;
-                imageHolder.innerHTML = `<img class="img-fluid rounded" src="${picFile.result}" title="${files[i].name}"/>`;
-                // output.appendChild(div);
-                console.log(picFile.result);
-                currentImage = picFile.result;
-                currentPSM = 3;
-            });
-            picReader.readAsDataURL(files[i]); //READ THE IMAGE
-            //   console.log(picFile.result);
+            if (!files[i].type.match("image"))
+            {
+                files.splice(i,1) // ONLY PHOTOS (SKIP CURRENT ITERATION IF NOT A PHOTO)
+            };
+        }
+        if(files.length>0){
+            currentImageIndex = 0;
+            // console.log(files[currentImageIndex]);
+            picReader.readAsDataURL(files[currentImageIndex]);
+            updatePrevNext();
         }
     } else {
         alert("Your browser does not support File API");
@@ -165,7 +219,7 @@ convertBtn.addEventListener("click", e => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            image: currentImage,
+            image: currentImageURL,
             psm_mode: currentPSM,
         }),
     })
@@ -188,6 +242,25 @@ convertBtn.addEventListener("click", e => {
         .catch(err => {
             console.log("Error: ", err);
         });
+});
+
+prevBtn.addEventListener("click", e => {
+    e.preventDefault();
+    if(currentImageIndex > 0){
+        currentImageIndex--;
+        picReader.readAsDataURL(files[currentImageIndex]); //READ PREV IMAGE
+        // console.log("Pic Reader", picReader);
+    }
+    updatePrevNext();
+});
+
+nextBtn.addEventListener("click", e => {
+    if(currentImageIndex < files.length - 1){
+        currentImageIndex++;
+        picReader.readAsDataURL(files[currentImageIndex]); //READ NEXT IMAGE
+        // console.log("Pic Reader", picReader);
+    }
+    updatePrevNext();
 });
 
 // let sha256 = function sha256(ascii) {

@@ -10,7 +10,10 @@
             integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
             crossorigin="anonymous"
         />
-
+        <!-- <link 
+            href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
+            rel="stylesheet"  type='text/css'/> -->
+        <!-- <link type="text/css" rel="stylesheet" href="magiczoomplus/magiczoomplus.css"/> -->
         <!-- For using Google Fonts -->
 
         <!-- font-family: 'Lobster', cursive;
@@ -49,37 +52,47 @@
     <footer class="mt-5 p-3 text-center bg-light">
         GitHub Finder &copy;
     </footer> -->
-        <div class="container-fluid mx-0 px-0 my-0 py-0">
+        <div class="container-fluid mx-0 px-0 mb-2 py-0">
             <h2 class="bg-dark text-center py-2 my-0 stylish" style="color: #efefef">
                 REVE Data Lake
             </h2>
         </div>
-        <div class="container-fluid px-3">
-            <div class="row px-4 pt-2 pb-0 my-0" style="border: 2px solid red;">
-                <div class="col-5 px-0 py-0 my-0">
-                    <div class="row py-0 my-0">
+        <div class="container-fluid">
+            <div class="row" style="border: 0px solid red;">
+                <div class="col-5">
+                    <div class="row pl-3">
                         <div
-                            class="col-12 boxshadow"
+                            class="col-12 boxshadow px-0"
                             id="imageHolder"
                             style="width: inherit; height: 70vh; display: flex; justify-content: center;"
-                        >
+                        ></div>
                             <!-- <label for="option-size">Size</label>
                             <input id="option-size" type="number" max="20" min="0" step="1" value="7"> -->
                             <!-- <img src="..." class="img-fluid" alt="..."> -->
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
-                <div class="col-2 px-3 py-0 my-0" style="display: flex; justify-content: center; align-items: center;">
+                <div class="col-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <button id="convertBtn" type="button" class="btn btn-primary" style="height: fit-content;">
                         Convert
                     </button>
+                    <br>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" title="Page Segmentation Mode">
+                          PSM
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="psm">
+                          <a class="dropdown-item" href="#">3 ghj</a>
+                          <a class="dropdown-item" href="#">6 uniform Block of Text</a>
+                          <a class="dropdown-item" href="#">11 Sparse Text</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-5 mx-0 px-0 py-0 mb-0" style="border: 2px solid green; height: fit-content;">
-                    <div class="row px-0 py-0 my-0">
+                <div class="col-5 pr-3 pl-0" style="border: 0px solid green; height: fit-content;">
+                    <div class="row">
                         <div
-                            class="col-12 px-0 py-0 my-0"
+                            class="col-12"
                             id="contentHolder"
-                            style="height: 75vh;"
                         >
                             <textarea
                                 id="content"
@@ -87,27 +100,52 @@
                                 style="width:inherit"
                                 class="boxshadow px-3 py-3"
                                 placeholder="Content goes here ..."
-                            >
-                            </textarea>
+                            ></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-5" style="display: flex; justify-content: space-between;">
-                    <label for="files">Select multiple files</label>
-                    <input id="files" type="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+            <div class="row" style="border: 0px solid magenta;">
+                <div class="col-5">
+                    <div class="row" style="border: 0px solid green;">
+                        <div class="col-12" style="display: flex; justify-content: space-around;">
+                            <label for="files">Select multiple files</label>
+                            <input id="files" type="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+                        </div>
+                    </div>
+                    <div class="row" style="border: 0px solid red;">
+                        <div class="col-12 pr-0" style="display: flex; justify-content: space-between;">
+                            <button
+                                id="prevBtn"
+                                type="button"
+                                class="btn btn-info"
+                                style="font-weight: bolder; font-size: 120%; height: fit-content;"
+                                disabled="true"
+                            >
+                                Previous
+                            </button>
+                            <button
+                                id="nextBtn"
+                                type="button"
+                                class="btn btn-info"
+                                style="font-weight: bolder; font-size: 120%; height: fit-content;"
+                                disabled="true"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-2">
+                <div class="col-2" style="border: 0px solid black;">
 
                 </div>
-                <div class="col-5 pl-0">
+                <div class="col-5 pr-3 pl-0" style="border: 0px solid blue;">
                     <div
-                        class="row pl-3"
+                        class="row px-3"
                         style="
                             width: inherit;
                             display: flex;
-                            justify-content: space-between;
+                            justify-content: space-around;
                         "
                     >
                         <!-- <div class="col-6 px-3"> -->
@@ -174,7 +212,7 @@
                             </div>
                         <!-- </div> -->
                     </div>
-                    <div class="row pl-0 pr-3 pt-0 mt-0 mx-0">
+                    <div class="row pl-0" style="border: 0px solid red;">
                         <div class="col-12">
                             <textarea
                                 id="reference"
@@ -184,11 +222,11 @@
                                 placeholder="Reference goes here ..."
                             ></textarea>
                         </div>
-                        <div class="col-12 mt-3">
+                        <div class="col-12 mt-1">
                             <button
                                 id="submitBtn"
                                 type="button"
-                                class="btn btn-success btn-lg btn-block"
+                                class="btn btn-success btn-sm btn-block"
                                 style="font-weight: bolder; font-size: 120%"
                                 disabled="true"
                             >
@@ -199,6 +237,7 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script
             src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -214,31 +253,9 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"
         ></script>
+        <!-- <script type="text/javascript" src="magiczoomplus/magiczoomplus.js"></script> -->
+        <!-- <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script> -->
         <script src="ui.js"></script>
         <script src="script.js"></script>
-
-        <script type="module">
-            // Import the functions you need from the SDKs you need
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-analytics.js";
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
-
-            // Your web app's Firebase configuration
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            const firebaseConfig = {
-                apiKey: "AIzaSyBYjiCZ6l_GBcwmkFOCoTwZpdH0-SsrtK8",
-                authDomain: "reve-linguistics.firebaseapp.com",
-                projectId: "reve-linguistics",
-                storageBucket: "reve-linguistics.appspot.com",
-                messagingSenderId: "1089388866514",
-                appId: "1:1089388866514:web:b3157801672cf4faa0360b",
-                measurementId: "G-X9DBH5Q2FZ",
-            };
-
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
-        </script>
     </body>
 </html>
