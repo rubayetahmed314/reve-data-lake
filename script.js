@@ -1,8 +1,11 @@
 const imageHolder = document.querySelector("#imageHolder");
+const displayImg = document.querySelector("#zoom");
 const submitBtn = document.querySelector("#submitBtn");
 const convertBtn = document.querySelector("#convertBtn");
 const prevBtn = document.querySelector("#prevBtn");
 const nextBtn = document.querySelector("#nextBtn");
+const psmMenuButton = document.querySelector("#psmMenuButton");
+const languageMenuButton = document.querySelector("#languageMenuButton");
 let files = [];
 
 const content = document.querySelector("#content");
@@ -10,6 +13,8 @@ const reference = document.querySelector("#reference");
 let currentImageURL = null;
 let currentImageIndex = -1;
 let currentPSM = 3;
+let currentLang = "ben";
+let currentPredictedText = '';
 
 const API = "http://localhost:8000/api";
 // const API = "https://reve-data-lake.herokuapp.com/api";
@@ -39,10 +44,12 @@ picReader.addEventListener("load", function (event) {
     // LOAD EVENT FOR DISPLAYING PHOTOS
     const picFile = event.target;
     // console.log("PicFile", picFile);
-    imageHolder.innerHTML = `<img class="img-fluid rounded" src="${picFile.result}" title="${files[currentImageIndex].name}"/>`;
+    // imageHolder.innerHTML = `<img class="img-fluid rounded" src="${picFile.result}" title="${files[currentImageIndex].name}"/>`;
+    displayImg.setAttribute("src", picFile.result);
+    displayImg.setAttribute("title", files[currentImageIndex].name);
     // <a href="large.jpg" class="MagicZoom" data-options="zoomPosition: inner"><img src="small.jpg" /></a>
     // output.appendChild(div);
-    console.log(picFile.result);
+    // console.log(picFile.result);
     currentImageURL = picFile.result;
 });
 
@@ -62,7 +69,19 @@ const updatePrevNext = () => {
 $(document).ready(function () {
     $('#psm a').on('click', function () {
       currentPSM = parseInt($(this).text().split(' ')[0]);
+      psmMenuButton.textContent = currentPSM;
       console.log("Current PSM is "+ currentPSM);
+    });
+
+    $('#lang a').on('click', function () {
+        currentLang = $(this).text().toLowerCase().slice(0,3);
+        languageMenuButton.textContent = currentLang;
+        console.log("Current Lang is "+ currentLang);
+      });
+
+    $("#zoom").imagezoomsl({
+        innerzoom: true,
+        innerzoommagnifier: false,
     });
 });
 
@@ -137,8 +156,9 @@ submitBtn.addEventListener("click", async function (e) {
             },
             body: JSON.stringify({
                 content: content.value,
+                predictedText: currentPredictedText,
                 reference: selected == "Manual" ? "Manual" : reference.value,
-                ocr: imageHolder.innerHTML==''? false : true,
+                ocr: displayImg.getAttribute("src")=='placeholderimgrgb.jpg'? false : true,
             }),
         })
             .then(response => {
@@ -160,7 +180,9 @@ submitBtn.addEventListener("click", async function (e) {
 
         content.value = "";
         reference.value = "";
-        imageHolder.innerHTML = '';
+        // imageHolder.innerHTML = '';
+        displayImg.setAttribute("src", "placeholderimgrgb.jpg");
+        displayImg.setAttribute("title", "Placeholder Image");
         document.getElementById("webLink").checked = true;
         reference.disabled = false;
         submitBtn.disabled = true;
@@ -200,7 +222,7 @@ document.querySelector("#files").addEventListener("change", e => {
         }
         if(files.length>0){
             currentImageIndex = 0;
-            // console.log(files[currentImageIndex]);
+            console.log(files[currentImageIndex]);
             picReader.readAsDataURL(files[currentImageIndex]);
             updatePrevNext();
         }
@@ -221,6 +243,7 @@ convertBtn.addEventListener("click", e => {
         body: JSON.stringify({
             image: currentImageURL,
             psm_mode: currentPSM,
+            lang: currentLang,
         }),
     })
         .then(response => {
@@ -234,6 +257,7 @@ convertBtn.addEventListener("click", e => {
             console.log("Response: ", data);
 
             content.value = data.result;
+            currentPredictedText = data.result;
             submitBtn.disabled = false;
             // this.setState({
             //     letter: data.letter,

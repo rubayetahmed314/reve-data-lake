@@ -65,11 +65,13 @@
                             class="col-12 boxshadow px-0"
                             id="imageHolder"
                             style="width: inherit; height: 70vh; display: flex; justify-content: center;"
-                        ></div>
+                        >
                             <!-- <label for="option-size">Size</label>
                             <input id="option-size" type="number" max="20" min="0" step="1" value="7"> -->
                             <!-- <img src="..." class="img-fluid" alt="..."> -->
                         <!-- </div> -->
+                            <img class="img-fluid rounded" src="placeholderimgrgb.jpg" title="Placeholder Image" id="zoom"/>
+                        </div>
                     </div>
                 </div>
                 <div class="col-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -78,13 +80,29 @@
                     </button>
                     <br>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" title="Page Segmentation Mode">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="psmMenuButton" data-toggle="dropdown" aria-expanded="false" title="Page Segmentation Mode">
                           PSM
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="psm">
-                          <a class="dropdown-item" href="#">3 ghj</a>
-                          <a class="dropdown-item" href="#">6 uniform Block of Text</a>
+                        <div class="dropdown-menu" aria-labelledby="psmMenuButton" id="psm">
+                          <a class="dropdown-item" href="#">3 Fully automatic page segmentation</a>
+                          <a class="dropdown-item" href="#">4 Single column of text</a>
+                          <a class="dropdown-item" href="#">6 Single uniform block of text</a>
+                          <a class="dropdown-item" href="#">7 Single Line</a>
+                          <a class="dropdown-item" href="#">8 Single Word</a>
+                          <a class="dropdown-item" href="#">10 Single Character</a>
                           <a class="dropdown-item" href="#">11 Sparse Text</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="languageMenuButton" data-toggle="dropdown" aria-expanded="false" title="Language">
+                          Lang
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="languageMenuButton" id="lang">
+                          <a class="dropdown-item" href="#">Arabic</a>
+                          <a class="dropdown-item" href="#">Bengali</a>
+                          <a class="dropdown-item" href="#">English</a>
+                          <a class="dropdown-item" href="#">Hindi</a>
                         </div>
                     </div>
                 </div>
@@ -237,12 +255,15 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <!-- <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+        <script src="zoomsl.js"></script>
+        <!-- <script
             src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"
-        ></script>
+        ></script> -->
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
