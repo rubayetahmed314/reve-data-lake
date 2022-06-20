@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./App.css" />
+        <link rel="stylesheet" href="./ZoomPlusMinus.css" />
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -70,13 +71,19 @@
                             <input id="option-size" type="number" max="20" min="0" step="1" value="7"> -->
                             <!-- <img src="..." class="img-fluid" alt="..."> -->
                         <!-- </div> -->
-                            <img class="img-fluid rounded" src="placeholderimgrgb.jpg" title="Placeholder Image" id="zoom"/>
+                            <img class="img-fluid rounded" src="placeholderimgrgb.jpg" title="Placeholder Image" alt="Image To Zoom" id="zoom"/>
                         </div>
                     </div>
                 </div>
                 <div class="col-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <div class="alert alert-success" role="alert">
-                        A simple success alert—check it out!
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert" style="display: none;"></div>
+                    <br>
+                    <div style="border: 0px solid red;">
+                        <form class="p-0 m-0" style="width: fit-content; height:fit-content">
+                            <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">--</div>
+                            <input type="number" id="zoomInput" value="2" />
+                            <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                        </form>
                     </div>
                     <br>
                     <div class="dropdown">
@@ -110,9 +117,7 @@
                         Convert
                     </button>
                     <br>
-                    <div class="alert alert-danger" role="alert">
-                        A simple danger alert—check it out!
-                    </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="errorAlert" style="display: none;"></div>
                 </div>
                 <div class="col-5 pr-3 pl-0" style="border: 0px solid green; height: fit-content;">
                     <div class="row">
@@ -150,7 +155,7 @@
                             >
                                 Previous
                             </button>
-                            <span class="bg-dark text-secondary" id="imgStat">0 of 0</span>
+                            <span class="bg-dark text-white px-1 py-2 rounded" id="imgStat" style="font-size:larger; font-weight: bolder;">0 of 0</span>
                             <button
                                 id="nextBtn"
                                 type="button"
@@ -246,7 +251,7 @@
                                 id="reference"
                                 rows="2"
                                 style="width: inherit"
-                                class="boxshadow px-2 py-2"
+                                class="px-2 py-2 rounded"
                                 placeholder="Reference goes here ..."
                             ></textarea>
                         </div>

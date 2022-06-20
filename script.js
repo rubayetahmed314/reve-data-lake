@@ -1,5 +1,5 @@
 const imageHolder = document.querySelector("#imageHolder");
-const displayImg = document.querySelector("#zoom");
+let displayImg = document.querySelector("#zoom");
 const submitBtn = document.querySelector("#submitBtn");
 const convertBtn = document.querySelector("#convertBtn");
 const prevBtn = document.querySelector("#prevBtn");
@@ -7,6 +7,9 @@ const nextBtn = document.querySelector("#nextBtn");
 const psmMenuButton = document.querySelector("#psmMenuButton");
 const languageMenuButton = document.querySelector("#languageMenuButton");
 const imgStat = document.querySelector("#imgStat");
+const successAlert = document.querySelector("#successAlert");
+const errorAlert = document.querySelector("#errorAlert");
+const zoomInput = document.querySelector("#zoomInput");
 let files = [];
 
 const content = document.querySelector("#content");
@@ -46,12 +49,54 @@ picReader.addEventListener("load", function (event) {
     const picFile = event.target;
     // console.log("PicFile", picFile);
     // imageHolder.innerHTML = `<img class="img-fluid rounded" src="${picFile.result}" title="${files[currentImageIndex].name}"/>`;
+    displayImg = document.querySelector("#zoom");
     displayImg.setAttribute("src", picFile.result);
     displayImg.setAttribute("title", files[currentImageIndex].name);
     // <a href="large.jpg" class="MagicZoom" data-options="zoomPosition: inner"><img src="small.jpg" /></a>
     // output.appendChild(div);
     // console.log(picFile.result);
     currentImageURL = picFile.result;
+});
+
+function updateZoom(value) {
+    $("#zoom").replaceWith(`<img class="img-fluid rounded" src="placeholderimgrgb.jpg" title="Placeholder Image" alt="Image To Zoom" id="zoom"/>`);
+
+    picReader.readAsDataURL(files[currentImageIndex]);
+
+    $("#zoom").imagezoomsl({
+        innerzoom: true,
+        innerzoommagnifier: false,
+        zoomstart: value,
+    });
+}
+
+function increaseValue() {
+    var value = parseInt(zoomInput.value, 10);
+    value = isNaN(value) ? 0 : value;
+    value > 19 ? value = 19 : '';
+    value++;
+    zoomInput.value = value;
+
+    updateZoom(value);
+}
+  
+function decreaseValue() {
+    var value = parseInt(zoomInput.value, 10);
+    value = isNaN(value) ? 0 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    zoomInput.value = value;
+
+    updateZoom(value);
+}
+
+zoomInput.addEventListener("input", event => {
+    // console.log("changed");
+    if (zoomInput.value.match(/^[2-9]$|^1[0-9]$|^20$/) != null) {
+        updateZoom(parseInt(zoomInput.value));
+    } else {
+        zoomInput.value = "2";
+    }
 });
 
 const updatePrevNext = () => {
@@ -64,6 +109,28 @@ const updatePrevNext = () => {
         nextBtn.disabled = false;
     } else{
         nextBtn.disabled = true;
+    }
+}
+
+const showSuccessError = (param, message) => {
+    if(param == "success"){
+        successAlert.style.display="block";
+        successAlert.innerHTML = `<strong>Success!</strong> ${message}.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>`;
+        setTimeout(() => {
+            successAlert.style.display="none";
+        }, 5000);
+    } else if(param == "error"){
+        errorAlert.style.display="block";
+        errorAlert.innerHTML = `<strong>Error!</strong> ${message}.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>`;
+        setTimeout(() => {
+            errorAlert.style.display="none";
+        }, 10000);
     }
 }
 
@@ -83,6 +150,7 @@ $(document).ready(function () {
     $("#zoom").imagezoomsl({
         innerzoom: true,
         innerzoommagnifier: false,
+        zoomstart: 2,
     });
 });
 
@@ -170,6 +238,7 @@ submitBtn.addEventListener("click", async function (e) {
                 //     loading: false,
                 // });
                 console.log("Response: ", data);
+                showSuccessError("success", "Successfully uploaded to database!");
 
                 content.value = "";
                 // reference.value = "";
@@ -202,6 +271,7 @@ submitBtn.addEventListener("click", async function (e) {
             })
             .catch(err => {
                 console.log("Error: ", err);
+                showSuccessError("error", err.message.toString());
             });
     }
     // Fetch API
@@ -290,7 +360,8 @@ convertBtn.addEventListener("click", e => {
             // });
         })
         .catch(err => {
-            console.log("Error: ", err);
+            console.log("Error: ", err.message);
+            showSuccessError("error", err.message.toString());
         });
 });
 
