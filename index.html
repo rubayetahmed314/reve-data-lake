@@ -75,9 +75,9 @@
                     </div>
                 </div>
                 <div class="col-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <button id="convertBtn" type="button" class="btn btn-primary" style="height: fit-content;">
-                        Convert
-                    </button>
+                    <div class="alert alert-success" role="alert">
+                        A simple success alert—check it out!
+                    </div>
                     <br>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="psmMenuButton" data-toggle="dropdown" aria-expanded="false" title="Page Segmentation Mode">
@@ -105,6 +105,14 @@
                           <a class="dropdown-item" href="#">Hindi</a>
                         </div>
                     </div>
+                    <br>
+                    <button id="convertBtn" type="button" class="btn btn-primary" style="height: fit-content;">
+                        Convert
+                    </button>
+                    <br>
+                    <div class="alert alert-danger" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
                 </div>
                 <div class="col-5 pr-3 pl-0" style="border: 0px solid green; height: fit-content;">
                     <div class="row">
@@ -128,7 +136,7 @@
                     <div class="row" style="border: 0px solid green;">
                         <div class="col-12" style="display: flex; justify-content: space-around;">
                             <label for="files">Select multiple files</label>
-                            <input id="files" type="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+                            <input id="files" type="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg" style="color:transparent;">
                         </div>
                     </div>
                     <div class="row" style="border: 0px solid red;">
@@ -142,6 +150,7 @@
                             >
                                 Previous
                             </button>
+                            <span class="bg-dark text-secondary" id="imgStat">0 of 0</span>
                             <button
                                 id="nextBtn"
                                 type="button"
@@ -216,6 +225,7 @@
                                     name="option"
                                     id="ocr"
                                     value="OCR"
+                                    disabled="true"
                                 />
                                 <label
                                     class="form-check-label mt-n2"
