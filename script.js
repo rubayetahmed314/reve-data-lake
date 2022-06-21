@@ -254,31 +254,31 @@ submitBtn.addEventListener("click", async function (e) {
                 content.value = "";
                 // reference.value = "";
                 // imageHolder.innerHTML = '';
+                if(selected == "OCR"){
+                    files.splice(currentImageIndex, 1);
+                    console.log(files.length);
+                    console.log(document.querySelector("#files"));
 
-                files.splice(currentImageIndex, 1);
-                console.log(files.length);
-                console.log(document.querySelector("#files"));
-
-                if(files.length > 0){
-                    if(currentImageIndex > files.length - 1){
-                        currentImageIndex = files.length - 1;
+                    if(files.length > 0){
+                        if(currentImageIndex > files.length - 1){
+                            currentImageIndex = files.length - 1;
+                        }
+                        if(currentImageIndex < 0){
+                            currentImageIndex = 0;
+                        }
+                        picReader.readAsDataURL(files[currentImageIndex]);
+                        updatePrevNext();
+                        document.getElementById("imgStat").innerText = `${currentImageIndex + 1} of ${files.length}`;
+                        document.querySelector("#files").setAttribute("title", `${files.length} File(s) Chosen`);
+                    } else{
+                        displayImg.setAttribute("src", "placeholderimgrgb.jpg");
+                        displayImg.setAttribute("title", "Placeholder Image");
+                        document.getElementById("webLink").checked = true;
+                        document.getElementById("ocr").disabled = true;
+                        document.getElementById("imgStat").innerText = `0 of 0`;
+                        document.querySelector("#files").setAttribute("title", `No File Chosen`);
                     }
-                    if(currentImageIndex < 0){
-                        currentImageIndex = 0;
-                    }
-                    picReader.readAsDataURL(files[currentImageIndex]);
-                    updatePrevNext();
-                    document.getElementById("imgStat").innerText = `${currentImageIndex + 1} of ${files.length}`;
-                    document.querySelector("#files").setAttribute("title", `${files.length} File(s) Chosen`);
-                } else{
-                    displayImg.setAttribute("src", "placeholderimgrgb.jpg");
-                    displayImg.setAttribute("title", "Placeholder Image");
-                    document.getElementById("webLink").checked = true;
-                    document.getElementById("ocr").disabled = true;
-                    document.getElementById("imgStat").innerText = `0 of 0`;
-                    document.querySelector("#files").setAttribute("title", `No File Chosen`);
                 }
-
                 reference.disabled = false;
                 submitBtn.disabled = true;
             })
