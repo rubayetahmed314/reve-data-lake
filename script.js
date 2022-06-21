@@ -49,7 +49,7 @@ picReader.addEventListener("load", function (event) {
     const picFile = event.target;
     // console.log("PicFile", picFile);
     // imageHolder.innerHTML = `<img class="img-fluid rounded" src="${picFile.result}" title="${files[currentImageIndex].name}"/>`;
-    displayImg = document.querySelector("#zoom");
+    
     displayImg.setAttribute("src", picFile.result);
     displayImg.setAttribute("title", files[currentImageIndex].name);
     // <a href="large.jpg" class="MagicZoom" data-options="zoomPosition: inner"><img src="small.jpg" /></a>
@@ -60,8 +60,11 @@ picReader.addEventListener("load", function (event) {
 
 function updateZoom(value) {
     $("#zoom").replaceWith(`<img class="img-fluid rounded" src="placeholderimgrgb.jpg" title="Placeholder Image" alt="Image To Zoom" id="zoom"/>`);
+    displayImg = document.querySelector("#zoom");
 
-    picReader.readAsDataURL(files[currentImageIndex]);
+    if(files.length > 0){
+        picReader.readAsDataURL(files[currentImageIndex]);
+    }
 
     $("#zoom").imagezoomsl({
         innerzoom: true,
@@ -95,7 +98,15 @@ zoomInput.addEventListener("input", event => {
     if (zoomInput.value.match(/^[2-9]$|^1[0-9]$|^20$/) != null) {
         updateZoom(parseInt(zoomInput.value));
     } else {
-        zoomInput.value = "2";
+        if(isNaN(parseInt(zoomInput.value))){
+            zoomInput.value = "2";
+        } else if(parseInt(zoomInput.value)<2){
+            zoomInput.value = "2";
+            updateZoom(2);
+        } else if(parseInt(zoomInput.value)>20){
+            zoomInput.value = "20";
+            updateZoom(20);
+        }
     }
 });
 
@@ -258,12 +269,14 @@ submitBtn.addEventListener("click", async function (e) {
                     picReader.readAsDataURL(files[currentImageIndex]);
                     updatePrevNext();
                     document.getElementById("imgStat").innerText = `${currentImageIndex + 1} of ${files.length}`;
+                    document.querySelector("#files").setAttribute("title", `${files.length} File(s) Chosen`);
                 } else{
                     displayImg.setAttribute("src", "placeholderimgrgb.jpg");
                     displayImg.setAttribute("title", "Placeholder Image");
                     document.getElementById("webLink").checked = true;
                     document.getElementById("ocr").disabled = true;
                     document.getElementById("imgStat").innerText = `0 of 0`;
+                    document.querySelector("#files").setAttribute("title", `No File Chosen`);
                 }
 
                 reference.disabled = false;
@@ -320,6 +333,7 @@ document.querySelector("#files").addEventListener("change", e => {
                 document.getElementById("ocr").disabled = false;
                 document.getElementById("ocr").checked = true;
                 document.getElementById("imgStat").innerText = `${currentImageIndex + 1} of ${files.length}`;
+                document.querySelector("#files").setAttribute("title", `${files.length} File(s) Chosen`); // file গুলোর নাম নিচে নিচে দেখালে সুন্দর হয়
             }
         }
     } else {
