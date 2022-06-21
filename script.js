@@ -327,6 +327,7 @@ document.querySelector("#files").addEventListener("change", e => {
             }
             if(files.length>0){
                 currentImageIndex = 0;
+                content.value = "";
                 console.log(files[currentImageIndex]);
                 picReader.readAsDataURL(files[currentImageIndex]);
                 updatePrevNext();
