@@ -20,7 +20,9 @@ let currentPSM = 3;
 let currentLang = "ben";
 let currentPredictedText = '';
 
-const API = "http://localhost:8000/api";
+const API = "http://localhost:6789/api";
+// const API = "http://127.0.0.1:6789/api";
+// const API = "http://192.168.56.1:6789/api";
 // const API = "https://reve-data-lake.herokuapp.com/api";
 
 // let ui = new UI();
